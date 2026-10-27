@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Play Giveaway</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial;
+  background: linear-gradient(180deg,#ffb300,#ff9800);
+}
+
+/* HEADER */
+.header{
+  background:#22c55e;
+  color:white;
+  padding:15px;
+  font-weight:bold;
+  font-size:18px;
+}
+
+/* VIDEO */
+.video{
+  width:350px;
+  height:auto;
+  display:block;
+  margin:25px auto;
+  border-radius:20px;
+}
+
+/* OFFER */
+.offer{
+  background:#ffe8a3;
+  margin:10px;
+  padding:12px;
+  border-radius:40px;
+  text-align:center;
+  font-weight:bold;
+  position:relative;
+  border:3px solid white;
+  animation: float 2s infinite ease-in-out;
+}
+
+.offer::before{
+  content:"";
+  position:absolute;
+  inset:6px;
+  border-radius:40px;
+  border:2px solid white;
+}
+
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+  100%{transform:translateY(0)}
+}
+
+.offer-content{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.offer img{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  padding:10px;
+}
+
+.card{
+  background:white;
+  border-radius:18px;
+  padding:15px;
+  text-align:center;
+  box-shadow:0 5px 10px rgba(0,0,0,0.2);
+}
+
+.btn{
+  background:#22c55e;
+  color:white;
+  padding:12px;
+  border:none;
+  border-radius:30px;
+  width:100%;
+  margin-top:10px;
+  font-weight:bold;
+  cursor:pointer;
+  transition: all 0.15s ease;
+}
+
+.btn:active{
+  transform: scale(0.92);
+}
+
+/* STEP BOX */
+.step-box{
+  background:white;
+  margin:15px;
+  padding:20px;
+  border-radius:20px;
+}
+
+/* SHARE BOX */
+.share-box{
+  background:white;
+  margin:15px;
+  padding:20px;
+  border-radius:20px;
+}
+
+.progress{
+  width:100%;
+  height:8px;
+  background:#ddd;
+  border-radius:10px;
+  overflow:hidden;
+  margin:10px 0;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:#22c55e;
+  transition:0.3s;
+}
+
+/* POPUP */
+.popup{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  z-index:9999;
+}
+
+.popup-box{
+  background:white;
+  width:90%;
+  margin:60px auto;
+  padding:15px;
+  border-radius:20px;
+}
+
+.popup-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.popup-header img{
+  width:40px;
+  border-radius:50%;
+}
+
+.popup-step{
+  margin-top:15px;
+}
+
+.popup-btn{
+  display:block;
+  padding:12px;
+  border-radius:25px;
+  text-align:center;
+  color:white;
+  margin-top:8px;
+  text-decoration:none;
+}
+
+.green{background:#22c55e;}
+.orange{background:#ff6a00;}
+
+.close{
+  margin-left:auto;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">🎮 Google Play Giveaway</div>
+
+<video class="video" controls autoplay muted loop>
+<source src="video.mp4" type="video/mp4">
+</video>
+
+<div class="offer">
+  <div class="offer-content">
+    <img src="images/logo.png">
+    🚀 1-INSTALL + REGISTER = 5,000 💎
+  </div>
+</div>
+
+<div class="grid" id="cards"></div>
+
+<!-- ✅ STEP BOX (IMAGE ADDED ONLY) -->
+<div class="step-box">
+<img src="images/step.png" style="width:80px;display:block;margin:0 auto 10px;">
+<h3>🎉 Play Store Code</h3>
+<p>1. Download & Register</p>
+<p>2. Use for 20-30 sec</p>
+<p>3. Submit email</p>
+
+<button class="btn" onclick="redirectMain()">Download & Register</button>
+</div>
+
+<!-- ✅ SHARE BOX (IMAGE ADDED ONLY) -->
+<div class="share-box">
+<img src="images/share.png" style="width:80px;display:block;margin:0 auto 10px;">
+<h3>🎁 Google Play ₹1000</h3>
+
+<div class="progress">
+  <div class="progress-bar" id="bar"></div>
+</div>
+
+<p id="status">0 / 5 SHARES COMPLETED</p>
+
+<button class="btn" onclick="shareNow()">SHARE</button>
+</div>
+
+<div class="popup" id="popup">
+<div class="popup-box">
+
+<div class="popup-header">
+<img src="images/logo.png">
+<div>
+<b>Complete 3 steps to unlock</b><br>
+<span style="color:#22c55e;">💎 1060 Diamonds 💎</span>
+</div>
+<span class="close" onclick="closePopup()">✖</span>
+</div>
+
+<hr>
+
+<div class="popup-step">
+<b>Complete Step 1</b>
+<p>Open link → Download & Register wait 60s</p>
+<a href="https://uplcm.com/4/10444713" target="_blank" class="popup-btn green">Start Step 1</a>
+</div>
+
+<div class="popup-step">
+<b>Complete Step 2</b>
+<p>Open link → Download & Register wait 60s</p>
+<a href="https://uplcm.com/4/10444713" target="_blank" class="popup-btn green">Start Step 2</a>
+</div>
+
+<div class="popup-step">
+<b>Complete Step 3</b>
+<p>Open link → Download & Register wait 60s</p>
+<a href="https://uplcm.com/4/10444713" target="_blank" class="popup-btn orange">Start Step 3</a>
+</div>
+
+</div>
+</div>
+
+<script>
+function redirectMain(){
+  window.open("https://uplcm.com/4/10444713","_blank");
+}
+
+const data = [
+{title:"💎 1060 Diamonds", img:"images/img1.png"},
+{title:"💎 5600 Diamonds", img:"images/img2.png"},
+{title:"Redeem Code", img:"images/img3.png"},
+{title:"Redeem Code", img:"images/img4.png"},
+{title:"💎 2180 Redeem Code", img:"images/img5.png"},
+{title:"💎 Diamonds ", img:"images/img6.png"},
+{title:"Redeem Code", img:"images/img1.png"},
+{title:"Redeem Code", img:"images/img2.png"},
+{title:"💎 1500 Diamonds", img:"images/img3.png"},
+{title:"💎 9999 Diamonds", img:"images/img4.png"}
+];
+
+let container = document.getElementById("cards");
+
+data.forEach(item=>{
+  container.innerHTML += `
+  <div class="card">
+    <img src="${item.img}" style="width:60px;margin-bottom:10px;">
+    <h3>${item.title}</h3>
+    <p style="color:gray;">Finish 3 Install</p>
+    <button class="btn" onclick="openPopup()">REDEEM</button>
+  </div>`;
+});
+
+function openPopup(){
+  document.getElementById("popup").style.display="block";
+}
+function closePopup(){
+  document.getElementById("popup").style.display="none";
+}
+
+let count=0;
+function shareNow(){
+  count++;
+  if(count>5) count=5;
+
+  document.getElementById("bar").style.width=(count/5)*100+"%";
+
+  let left = 5-count;
+
+  if(count<5){
+    document.getElementById("status").innerText =
+    count+" / 5 SHARES COMPLETED ("+left+" more required)";
+  }else{
+    document.getElementById("status").innerText =
+    "✅ UNLOCKED! Now redeem reward";
+  }
+
+  if(navigator.share){
+    navigator.share({
+      title:"Google Play Giveaway",
+      text:"Get free redeem code!",
+      url:"https://yourwebsite.com"
+    });
+  }
+}
+</script>
+
+</body>
+</html>
